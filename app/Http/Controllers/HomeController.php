@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Books;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+		$id = auth()->user()->id;
+		$books = Books::where('userID', $id)->orderBy('title','desc')->paginate(10);
+		return view('home')->withBooks($books);
     }
 }

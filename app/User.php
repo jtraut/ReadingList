@@ -32,4 +32,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->hasMany('App\Books','userID');
 	}	
+	
+	public function hasBooks()
+	{
+		$books = $this->find($this->id)->books;
+		if (sizeof($books)) //1 or more books
+			return true;
+		else
+			return false;
+	}
 }

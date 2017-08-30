@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <img src="https://thumbs.dreamstime.com/z/bookworm-15112673.jpg" alt="Book Worm" style="width:100px; float:left">
-                    <a class="navbar-brand" href="{{ url('/') }}" style="font-size:80px; padding-top:45px"> B O O K I T</a>
+                    <a class="navbar-brand" href="{{ route('home') }}" style="font-size:80px; padding-top:45px"> B O O K I T</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

@@ -18,9 +18,8 @@ class BookController extends Controller
 	 */
 	public function index()
 	{
-		$books = Books::where('entry', '==', 1)->orderBy('title','desc')->paginate(10);
-		$title = 'Listed Books';
-		return view('books')->withPosts($books)->withTitle($title);
+		$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+		return view('home')->withBooks($books);
 	}
 
 	/**
@@ -41,6 +40,7 @@ class BookController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
 		if($request->has('cancel'))
 		{
 			return redirect('/home');
@@ -67,7 +67,8 @@ class BookController extends Controller
 		
 		$message = 'Book added successfully';
 		$book->save();
-		return redirect('/')->withMessage($message);
+		
+		return redirect('/home')->withBooks($books)->withMessage($message);
 	}
 
 	/**
@@ -86,7 +87,8 @@ class BookController extends Controller
 		}
 		else 
 		{
-			return redirect('/')->withErrors('requested book not found');
+			$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+			return redirect('/')->withErrors('requested book not found')->withBooks($books);
 		}
 	}
 
@@ -108,7 +110,8 @@ class BookController extends Controller
 		}
 		else 
 		{
-			return redirect('/')->withErrors('you do not have sufficient permissions');
+			$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+			return redirect('/')->withErrors('you do not have sufficient permissions')->withBooks($books);
 		}
 	}
 
@@ -120,9 +123,10 @@ class BookController extends Controller
 	 */
 	public function update(Request $request)
 	{
+		$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
 		if($request->has('cancel'))
 		{
-			return redirect('/home');
+			return redirect('/home')->withBooks($books);
 		}
 		
 		$bookID = $request->input('bookID');
@@ -160,7 +164,7 @@ class BookController extends Controller
 		}
 		else
 		{
-			return redirect('/')->withErrors('you do not have sufficient permissions');
+			return redirect('/')->withErrors('you do not have sufficient permissions')->withBooks($books);
 		}
 	}
 
@@ -182,7 +186,7 @@ class BookController extends Controller
 		{
 			$data['errors'] = 'Invalid Operation. You have not sufficient permissions';
 		}
-		
-		return redirect('/')->with($data);
+		$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+		return redirect('/')->with($data)->withBooks($books);
 	}
 }
