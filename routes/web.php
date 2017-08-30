@@ -12,5 +12,33 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/home', function() {
+	return view('home');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// show new book form
+Route::get('/books/add','BookController@create')->name('new-book');
+
+// save new book
+Route::post('/books/add','BookController@store')->name('new-book');
+
+// edit book form
+Route::get('edit/{slug}','BookController@edit');
+
+// update book
+Route::post('update','BookController@update');
+
+// delete book
+Route::get('delete/{id}','BookController@destroy');
+
+// display user's all posts
+Route::get('list-books','UserController@list');
+
+

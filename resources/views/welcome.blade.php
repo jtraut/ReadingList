@@ -93,3 +93,43 @@
         </div>
     </body>
 </html>
+
+<!--BACKUP HOME-->
+
+@extends('app')
+
+@if ( Auth::guest() )
+	@section('content')
+		<center><div class="containerBody">
+			<div class="row">
+				<!-- Text Area -->
+				<div class="col-md-6" style="padding-left:80px">
+					<h1 style="font-size: 28px;font-weight: bold;">Create an account or log in to make the perfect reading list.
+					</font>
+				</div>
+				<!-- Image on Homepage -->
+				<div class="col-md-6">
+					<p><img src="http://images.clipartpanda.com/book-20clip-20art-Book4.jpg" alt="Stack of books"></p>
+				</div>
+				
+			</div>
+		</div></center>
+	@endsection
+@else
+	@section('title')
+		<p style="text-align:center">Welcome to Your New Reading List</p>
+	@endsection
+
+	@section('content')
+		<div class="col-md-6">
+			<a href="{{ url('/new-book') }}"><button class="btn" style="width:100%; margin-bottom:15px; font-size:large">Add New Book</button></a>
+			<p>Or view your profile:</p>
+			<a href="{{ url('/user/'.Auth::id()) }}"><button class="btn" style="width:100%; font-size:large">View Profile</button></a>				
+
+		</div>
+		<!-- Image on Homepage -->
+		<div class="col-md-6">
+			<p><img src="http://cuucomm.colorado.edu/images/UsingApp.png" alt="Using App"></p>
+		</div>
+	@endsection
+@endif

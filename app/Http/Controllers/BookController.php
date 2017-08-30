@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Books;
 use App\User;
 use App\Genre;
+use DateTime;
 
 use Illuminate\Http\Request;
 
@@ -29,8 +30,8 @@ class BookController extends Controller
 	 */
 	public function create(Request $request)
 	{
-		$genres = Genre::lists('name', 'id');	
-		return view('books.create')->with('genres', $genres);
+		$genres = Genre::pluck('name', 'id');	
+		return view('books.add')->with('genres', $genres);
 	}
 
 	/**
@@ -46,27 +47,27 @@ class BookController extends Controller
 		}
 				
 		$book = new Books();
-		$book->title = $request->get('title');
-		$book->author = $request->get('author');
+		$book->title = $request->title;
+		$book->author = $request->author;
 		$book->userID = $request->user()->id;
 		
 		$slugStr = $book->title . $book->userID; //could include author in slug for same title different author case
 		$book->slug = str_slug($slugStr);
-		$duplicate = Books::where('slug',$post->slug)->first();
+		$duplicate = Books::where('slug',$book->slug)->first();
 		if($duplicate)
 		{
-			return redirect('new-post')->withErrors('Book already exists in your list.')->withInput();
+			return redirect('books/add')->withErrors('Book already exists in your list.')->withInput();
 		}	
 		
-		$book->details = $request->get('details');		
-		$book->genre = Genre::where('id', $request->get('genre'))->pluck('name'); 
-				
-		$formatDate = date('Y-m-d', strtotime($request->get('published')));
+		$book->details = $request->details;		
+		$genreArr = Genre::where('id', $request->genre)->pluck('name'); 
+		$book->genre = $genreArr[0];
+		$formatDate = date('Y-m-d', strtotime($request->published));
 		$book->published = new DateTime($formatDate);
 		
 		$message = 'Book added successfully';
 		$book->save();
-		return redirect('edit/'.$book->slug)->withMessage($message);
+		return redirect('/')->withMessage($message);
 	}
 
 	/**
@@ -100,7 +101,7 @@ class BookController extends Controller
 		$book = Books::where('slug',$slug)->first();
 		if($book && ($request->user()->id == $book->userID))
 		{
-			$genres = Genre::lists('name', 'id');
+			$genres = Genre::pluck('name', 'id');
 			$genreID = Genre::where('name', $book->genre)->pluck('id');
 		
 			return view('books.edit')->with('book',$book)->with('genres', $genres)->with('genreID', $genreID);
@@ -184,5 +185,4 @@ class BookController extends Controller
 		
 		return redirect('/')->with($data);
 	}
-}
 }

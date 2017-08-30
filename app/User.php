@@ -1,14 +1,13 @@
-<?php
+<?php namespace App;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-namespace App;
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Model
-{
-	use Authenticatable;
-    use Notifiable;
+	use Authenticatable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
