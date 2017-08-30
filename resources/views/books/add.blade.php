@@ -39,7 +39,7 @@
 	
 	<div class="form-group">
 		
-		{!! Form::label('Date Published') !!}<br />
+		{!! Form::label('Date Published (MM/DD/YYYY)') !!}<br />
 		{!! Form::text('published', 
 			'',
 			['id' => 'datepicker', 'class' => 'form-control']) !!}

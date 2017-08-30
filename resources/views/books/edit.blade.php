@@ -26,7 +26,7 @@
 	
 	<div class="form-group">
 		<p>Details</p>
-		<textarea name='body'class="form-control">
+		<textarea name='details'class="form-control">
 			@if(!old('details'))
 			{!! $book->details !!}
 			@endif
@@ -43,7 +43,7 @@
 	</div>	
 	
 	<div class="form-group">
-		{!! Form::label('Date Published (DD/MM/YYYY)') !!}<br />
+		{!! Form::label('Date Published (MM/DD/YYYY)') !!}<br />
 		{!! Form::text('published', 
 			date('m/d/Y', strtotime($book->published)),
 			['id' => 'datepicker', 'class' => 'form-control']) !!}

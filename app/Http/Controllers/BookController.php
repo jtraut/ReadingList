@@ -129,19 +129,19 @@ class BookController extends Controller
 			return redirect('/home')->withBooks($books);
 		}
 		
-		$bookID = $request->input('bookID');
+		$bookID = $request->input('id');
 		$book = Books::find($bookID);
 		if($book && $book->userID == $request->user()->id)
 		{
 			$title = $request->input('title');
 			$slugStr = $title . $book->userID;
-			$book->slug = str_slug($slugStr); 
+			$slug = str_slug($slugStr); 
 			$duplicate = Books::where('slug',$slug)->first();
 			if($duplicate)
 			{
 				if($duplicate->id != $bookID)
 				{
-					return redirect('edit/'.$post->slug)->withErrors('Duplicate book in list.')->withInput();
+					return redirect('edit/'.$book->slug)->withErrors('Duplicate book in list.')->withInput();
 				}
 				else 
 				{
@@ -151,7 +151,8 @@ class BookController extends Controller
 			
 			$book->title = $title;
 			$book->details = $request->input('details');
-			$book->genre = Genre::where('id', $request->input('genre'))->pluck('name');
+			$genreArr = Genre::where('id', $request->input('genre'))->pluck('name');
+			$book->genre = $genreArr[0];
 			
 			$formatDate = date('Y-m-d', strtotime($request->input('published')));
 			$book->published = new DateTime($formatDate);	
