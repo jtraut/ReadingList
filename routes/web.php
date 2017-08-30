@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/home', function() {
-	return view('home');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
@@ -28,6 +22,9 @@ Route::get('/books/add','BookController@create')->name('new-book');
 
 // save new book
 Route::post('/books/add','BookController@store')->name('new-book');
+
+// display book
+Route::get('/books/{slug}', 'BookController@show');
 
 // edit book form
 Route::get('edit/{slug}','BookController@edit');

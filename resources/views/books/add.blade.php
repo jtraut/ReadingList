@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-Add New Book 
-@endsection
-
 @section('content')
 
 <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
@@ -16,7 +12,8 @@ Add New Book
 	}); 
 </script>
 
-<form action="{{ route('new-book') }}" method="POST" style="padding: 0 300px">
+<form action="{{ route('new-book') }}" method="POST" class="container">
+	<h3>Add New Book</h3>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="form-group">
 		<p>Title</p>

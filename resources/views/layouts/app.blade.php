@@ -66,11 +66,11 @@
                                         <a href="{{ url('books/add') }}">
                                             Add Book
                                         </a>
-                                       <!--
-                                        <form id="new-book" action="{{ route('home') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-										-->
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('home') }}">
+                                            Reading List
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

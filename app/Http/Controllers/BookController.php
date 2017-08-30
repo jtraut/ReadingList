@@ -88,7 +88,7 @@ class BookController extends Controller
 		else 
 		{
 			$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
-			return redirect('/')->withErrors('requested book not found')->withBooks($books);
+			return redirect('/home')->withErrors('requested book not found')->withBooks($books);
 		}
 	}
 
@@ -105,13 +105,13 @@ class BookController extends Controller
 		{
 			$genres = Genre::pluck('name', 'id');
 			$genreID = Genre::where('name', $book->genre)->pluck('id');
-		
-			return view('books.edit')->with('book',$book)->with('genres', $genres)->with('genreID', $genreID);
+			$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+			return view('books.edit')->with('book',$book)->with('genres', $genres)->with('genreID', $genreID)->withBooks($books);
 		}
 		else 
 		{
 			$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
-			return redirect('/')->withErrors('you do not have sufficient permissions')->withBooks($books);
+			return redirect('/home')->withErrors('you do not have sufficient permissions')->withBooks($books);
 		}
 	}
 
@@ -157,14 +157,14 @@ class BookController extends Controller
 			$book->published = new DateTime($formatDate);	
 			
 			$message = 'Book updated successfully';
-			$landing = 'articles/'.$post->slug;
+			$landing = 'books/'.$book->slug;
 			
 			$book->save();
 	 		return redirect($landing)->withMessage($message);
 		}
 		else
 		{
-			return redirect('/')->withErrors('you do not have sufficient permissions')->withBooks($books);
+			return redirect('/home')->withErrors('you do not have sufficient permissions')->withBooks($books);
 		}
 	}
 
