@@ -13,9 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-					<div class="col-md-6" style="float:right">
-						<p><img src="http://images.clipartpanda.com/book-20clip-20art-Book4.jpg" alt="Stack of books"></p>
-					</div>
+					
+					<img src="http://images.clipartpanda.com/book-20clip-20art-Book4.jpg" alt="Stack of books" style="width:250px;float:right">
+					
 					@if(!Auth::guest())
 						@if(Auth::user()->hasBooks()) <!-- if list not empty-->
 							 <div>

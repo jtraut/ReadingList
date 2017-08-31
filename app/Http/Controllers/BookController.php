@@ -162,7 +162,6 @@ class BookController extends Controller
 			$formatDate = date('Y-m-d', strtotime($request->input('published')));
 			$book->published = new DateTime($formatDate);	
 			
-			$book->listOrder = $request->input('listOrder');
 			
 			$message = 'Book updated successfully';
 			$landing = 'books/'.$book->slug;
