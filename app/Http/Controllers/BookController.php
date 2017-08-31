@@ -18,7 +18,7 @@ class BookController extends Controller
 	 */
 	public function index()
 	{
-		$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+		$books = Books::where('userID', auth()->user()->id)->orderBy('listsOrder','desc')->paginate(15);
 		return view('home')->withBooks($books);
 	}
 
@@ -65,6 +65,11 @@ class BookController extends Controller
 		$formatDate = date('Y-m-d', strtotime($request->published));
 		$book->published = new DateTime($formatDate);
 		
+		$listInt = sizeof($books) + 1;
+		$listStr = (string)$listInt;
+		$listStr = (string)$book->userID . $listStr;
+		$book->listOrder = (int)$listStr;
+		
 		$message = 'Book added successfully';
 		$book->save();
 		
@@ -106,7 +111,7 @@ class BookController extends Controller
 			$genres = Genre::pluck('name', 'id');
 			$genreID = Genre::where('name', $book->genre)->pluck('id');
 			$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
-			return view('books.edit')->with('book',$book)->with('genres', $genres)->with('genreID', $genreID)->withBooks($books);
+			return view('books.edit')->with('book',$book)->with('genres', $genres)->with('genreID', $genreID);
 		}
 		else 
 		{
@@ -157,6 +162,8 @@ class BookController extends Controller
 			$formatDate = date('Y-m-d', strtotime($request->input('published')));
 			$book->published = new DateTime($formatDate);	
 			
+			$book->listOrder = $request->input('listOrder');
+			
 			$message = 'Book updated successfully';
 			$landing = 'books/'.$book->slug;
 			
@@ -187,7 +194,7 @@ class BookController extends Controller
 		{
 			$data['errors'] = 'Invalid Operation. You have not sufficient permissions';
 		}
-		$books = Books::where('userID', auth()->user()->id)->orderBy('title','desc')->paginate(10);
+		$books = Books::where('userID', auth()->user()->id)->orderBy('listOrder','asc')->paginate(15);
 		return redirect('/')->with($data)->withBooks($books);
 	}
 }
