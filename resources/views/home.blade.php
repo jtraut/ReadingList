@@ -19,16 +19,21 @@
 					@if(!Auth::guest())
 						@if(Auth::user()->hasBooks()) <!-- if list not empty-->
 							 <div>
-								<div style="padding-bottom:15px; font-weight:900"> 
-								<a style="padding-right:20px" href=" {{ route('sortTitle') }}">Sort by Title</a>
-								<a href="{{ route('sortAuthor') }}">Sort by Author</a>
-								</div>
+								 @if(sizeof($books)>1)
+									<div style="padding-bottom:15px; font-weight:900"> 
+										<a style="padding-right:20px" href=" {{ route('sortTitle') }}">Sort by Title</a>
+										<a href="{{ route('sortAuthor') }}">Sort by Author</a>
+									</div>
+								@endif
 								@foreach( $books as $book )
 									<div>
 										<p style="font-size: 14px;">	
 											--
 											<a href="{{ url('/books/'.$book->slug) }}"> {{ $book->title }}</a>
-											by {{ $book->author }} -- Move
+											by {{ $book->author }} 
+											@if(sizeof($books)>1)
+												-- Move
+											@endif
 											@if($books[0]->listOrder != $book->listOrder) 
 												<a href="{{ url('up/'.$book->listOrder)}}">up</a>
 											@endif
