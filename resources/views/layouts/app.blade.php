@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Reading List</title>
+    <title>Bookit Reading List</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <img src="https://thumbs.dreamstime.com/z/bookworm-15112673.jpg" alt="Book Worm" style="width:100px; float:left">
-                    <a class="navbar-brand" href="{{ route('home') }}" style="font-size:80px; padding-top:45px"> B O O K I T</a>
+                    <a class="navbar-brand" href="{{ route('home') }}" style="font-size:5vw; padding-top:45px"> B O O K I T</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -51,7 +51,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
+                                     <li>
                                         <a href="{{ url('books/add') }}">
                                             Add Book
                                         </a>
@@ -86,6 +86,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-<p style="float:right; padding-right:20px">By Jake Traut</p>
+<p style="float:right; padding: 100px 20px 0 0">By Jake Traut</p>
 </body>
 </html>

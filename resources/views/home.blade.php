@@ -14,7 +14,7 @@
                         </div>
                     @endif
 					
-					<img src="http://images.clipartpanda.com/book-20clip-20art-Book4.jpg" alt="Stack of books" style="width:250px;float:right">
+					<img src="http://images.clipartpanda.com/book-20clip-20art-Book4.jpg" alt="Stack of books" style="max-width:250px;float:right; width:20vw">
 					
 					@if(!Auth::guest())
 						@if(Auth::user()->hasBooks()) <!-- if list not empty-->
