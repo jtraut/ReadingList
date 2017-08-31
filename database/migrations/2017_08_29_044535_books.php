@@ -19,13 +19,16 @@ class Books extends Migration
 			$table->increments('id');
 			$table->string('title');
 			$table->string('author');			
-			$table->text('details');
+			$table->text('details')->nullable();
 			$table->string('genre');	
-			$table->date('published');
+			$table->date('published')->nullable();
 			$table -> integer('userID') -> unsigned() -> default(0);
 			$table->foreign('userID')
 					->references('id')->on('users')
 					->onDelete('cascade');
+			$table->string('slug');
+			$table->timestamp('created_at');
+			$table->timestamp('updated_at');
 		});
     }
 
