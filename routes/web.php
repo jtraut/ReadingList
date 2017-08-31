@@ -17,6 +17,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/sortAuthor', 'HomeController@sortAuthor')->name('sortAuthor');
+
 // show new book form
 Route::get('/books/add','BookController@create')->name('new-book');
 

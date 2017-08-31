@@ -18,7 +18,11 @@
 					</div>
 					@if(!Auth::guest())
 						@if(Auth::user()->hasBooks()) <!-- if list not empty-->
-							 <div class="">
+							 <div>
+								<div style="padding-bottom:15px; font-weight:900"> 
+								<a style="padding-right:20px" href=" {{ route('home') }}">Sort by Title</a>
+								<a href="{{ route('sortAuthor') }}">Sort by Author</a>
+								</div>
 								@foreach( $books as $book )
 									<div>
 										<p style="font-size: 14px;">	
